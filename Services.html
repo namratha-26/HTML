@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Banking Website</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #ADADAD;
+			}
+			header {
+                color: #FEFFFF;
+                text-align: center;
+                padding : 15px 30px;
+                font-size: 20px;
+				font-weight: bold;
+                background-color: #123C69;
+                margin: 0px;
+            }
+			.customH {
+				font-size: 20px;
+				margin: 10px 15px;
+				font-weight: bold;
+			}
+			.customH1 {
+				font-size: 20px;
+				margin-left: 12%;
+				font-weight: bold;
+			}
+			form 
+			{
+				border: 3px solid ;
+				background-color: rgb(0,0,0);
+				background-color: rgba(0,0,0,0.3);
+				width: 30%;
+				margin-left: 2%;
+				height : 370px;
+			}
+			input[type=text], input[type=number] , select
+			{
+				width: 50%;
+  				padding: 5px 20px;
+  				margin: 8px 10px;
+  				display: inline-block;
+  				border: 1px solid #ccc;
+  				border-radius: 4px;
+  				box-sizing: border-box;
+				color:#123C69;
+				font-weight: bold;
+				font-size: 13px ;
+			}
+			input[type=button] 
+			{
+  				width: 30%;
+  				background-color: rgba(18, 60, 105,0.6);
+  				color: white;
+  				padding: 10px 15px;
+  				margin: 8px 5px;
+  				border: none;
+ 				border-radius: 4px;
+  				cursor: pointer;
+			}
+
+			input[type=button]:hover {
+  				background-color: rgb(	18, 60, 105);
+			}
+			label {
+				margin: 8px 10px;
+				font-size: 15px;
+			}
+			footer{
+                position: fixed;
+                bottom: 0;
+                margin: 0px;
+				background-color:  #4E4E50;
+                color: #FEFFFF;
+				padding: 20px 20px;
+				width: 100%;
+				text-align: center;
+				font-weight: bold;
+            }
+		</style>
+		<script>
+			function calcEMI()
+			{
+				var p = parseInt(document.getElementById("amt").value);
+				var y = parseInt(document.getElementById("dur").value);
+				var roi = parseInt(document.getElementById("ROI").value);
+				var r = roi/(100*12)
+				var n = 12*y
+				var emi= p*r*(Math.pow((r+1),n)/(Math.pow((1+r),n)-1))
+				document.getElementById("res").value = emi;
+			}
+			var flag= true;
+			function setFunc(val)
+			{
+				switch(val)
+				{
+					case "Home Loan": document.getElementById("ROI").value = 7 ;
+									break;
+					case "Car Loan": document.getElementById("ROI").value = 9 ;
+										break;
+					case "Personal Loan": document.getElementById("ROI").value = 12;
+										break;
+				}
+			}
+			function checkDuration()
+			{
+				var f = false;
+				var loan = document.getElementById("type").value;
+				var d = document.getElementById("dur").value;
+				switch(loan)
+				{
+					case "Home Loan":
+									if(parseInt(d)> 25 || parseInt(d)<1)
+									{
+										alert("Check the duration entered! Duration(in years) for Home Loan is between 1-25 years")
+										document.getElementById("dur").value= ""
+									}
+									else
+										f = true;
+									break;
+					case "Car Loan": 
+									if(parseInt(d)> 7 || parseInt(d)<1)
+									{
+										alert("Check the duration entered! Duration(in years) for Car Loan is between 1-7 years")
+										document.getElementById("dur").value= ""
+									}
+									else
+										f = true;
+									break;
+					case "Personal Loan": 
+									if(parseInt(d)> 5 || parseInt(d)<1)
+									{
+										alert("Check the duration entered! Duration(in years) for Personal Loan is between 1-5 years")
+										document.getElementById("dur").value= ""
+									}
+									else
+										f = true;
+									break;
+				}
+				if(f==true)
+				{
+					calcEMI()
+				}
+										
+			}
+            function loanForm()
+            {
+                if(flag)
+                { 
+                    var str= `<div class="customH1">LOAN FORM</div>
+                        <form>
+                            <h3>
+                                <label>Applicant Name</label> <input type="text" name="an"><br>
+                                <label>Type</label> <select onchange="setFunc(this.value)" id="type">
+									<option disabled selected value> -- select an option -- </option>
+									<option>Home Loan</option>
+									<option>Car Loan</option>
+									<option>Personal Loan</option>
+								</select><br>
+								<label>Amount</label> <input type="text" name="a" id="amt"><br>
+                                <label>ROI</label> <input type="text" name="r" id="ROI" disabled><br> 
+								<label>Duration</label> <input type="number" name="d" id="dur" ><br><br>
+
+								<label>EMI</label> <input type="number" name="EMI" id="res" disabled><br>
+
+								<input type="button" value="Calculate EMI" onClick="checkDuration()">
+
+                            </h3>
+                        </form>`
+					
+                    document.getElementById("d1").innerHTML = str
+                    document.getElementById("d2").innerHTML = `<i class="fa fa-minus customH" onClick="loanForm()"></i><span id="s1" style="color:red;">HIDE</span>`
+                }
+				//<div class="customH" onClick="loanForm()"><span id="s1" style="color:#123C69;">LOAN</span></div>
+                else
+                {
+                    document.getElementById("d1").innerHTML = ""
+                    document.getElementById("d2").innerHTML = `<i class="fa fa-plus customH" onClick="loanForm()"></i><span id="s1" style="color:red;">LOAN</span>`
+                    document.getElementById("s1").style.color = "#123C69"
+                }
+                flag=!flag
+            }
+		</script>
+	</head>
+	<body>
+		<header>SERVICES</header>
+		<div class="customH" id ="d2"><i class="fa fa-plus customH" onClick="loanForm()"></i><span id="s1" style="color:#123C69;">LOAN</span></div>
+        <div id="d1"></div>
+		<footer>
+				Copyright ©-All rights are reserved
+		</footer>
+	</body>
+</html>

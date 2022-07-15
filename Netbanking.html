@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Banking Website</title>
+		<style>
+			body {
+				margin: 0px;
+				background-image: url(10.jpg);
+			}
+			form 
+			{
+				border: 3px solid ;
+				background-color: rgb(18,60,105);
+				background-color: rgba(18,60,105,0.7);
+				width: 30%;
+				margin-left: 10%;
+				margin-top : 5%;
+			}
+			input[type=text], input[type=password] 
+			{
+  				width: 90%;
+  				padding: 10px 20px;
+  				margin: 8px 15px;
+  				display: inline-block;
+  				border: 1px solid #ccc;
+  				box-sizing: border-box;
+			}
+			.button {
+  				background-color: #04AA6D;
+  				color: white;
+  				padding: 10px 20px;
+  				margin: 8px 15px;
+  				border: none;
+  				cursor: pointer;
+  				width: 90%;
+			}
+			.clear {
+  				background-color:  #f44336;
+  				color: white;
+  				padding: 10px 20px;
+  				margin: 8px 15px;
+  				border: none;
+  				cursor: pointer;
+  				width: 90%;
+			}
+			button:hover {
+				opacity: 0.8;
+			}
+			.p {
+				margin-left: 17%;
+				color: whitesmoke;
+				font-size: 20px;
+			}
+			.h {
+				margin-top: 20px;
+				margin-left: 15%;
+				font-size: 20px;
+				padding: 5px;
+				color: whitesmoke;
+			}
+
+		</style>
+	</head>
+	<body>
+        <form action="abc.html" method="POST">
+			<div class="h">
+				<h2>PLEASE LOGIN</h2> 
+			</div>
+        <h3>
+			<input type="text" name="uname" required placeholder="Username"><br>
+			<input type="password" name="pwd"placeholder="Password" required minLength=4 maxLength=8><br>
+	        <br>
+	        <button class="button" type="submit">LOGIN</button>
+	        <button class="clear" type="reset">CLEAR</button>
+        </h3>
+		<p class="p"> Don't have an account?<a href="SignUp.html"> Sign Up</a> </p>
+        </form>
+	</body>
+</html>
